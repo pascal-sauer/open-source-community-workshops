@@ -20,7 +20,7 @@
 					<textarea data-template>
 ### Lessons Learned from Organizing Community Workshops for Open-Source Tools
 
-Alex Hagen & Pascal Sauer
+Pascal Sauer & Alex Hagen
 
 <img src=logo.png></img>
 
@@ -30,167 +30,191 @@ https://events.hifis.net/event/1741/contributions/13920/
 
 --
 
-### storytime
-- HPC, ~50 users using same pkg library
+### setting the stage
 
-- ~30 pkgs developed in-house, ~10 updates per day, most people want all updates
+- open source model/tool
+- used by some externals, interest by more
 
-1. 👩🏻‍🎓 finishing up paper, run results today differ from yesterday <!-- .element: class="fragment" data-fragment-index="2" -->
-2. 🧑🏼‍💻 testing new feature in a central tool <!-- .element: class="fragment" data-fragment-index="3" -->
-3. 👨🏾‍🔧 reproduce run from a month ago <!-- .element: class="fragment" data-fragment-index="4" -->
+- you organized workshop
+  - with 15 participants
+  - from all over the world
+  - hybrid
+
+- tech trouble, ignored setup instructions
+- online participants stay muted & invisible
 
 notes:
-b) get installed automatically on push to github
-day at work
-1. "did not change anything, how can that be?" -> ask RSE
-2. ...by installing it system-wide, of course there's a bug -> everyone affected
-3. "can I install all pkg versions from back then? I have written them down on a piece of paper"
-can help all of them with pkg envs
-
-3min
+- ~ our situation
+- hindsight: key questions/goals, decisions
+- 1-2 tech support people, still slowed
+- ask people to turn on camera
+- eventually some participants started, others followed
+  - have team join with camera
 
 ---
 
-### What is a pkg env?
-
-- installed pkgs
-- specific to a project (folder)
-- isolated from system-wide installed pkgs <!-- .element: class="fragment" data-fragment-index="2" -->
-- tools to <!-- .element: class="fragment" data-fragment-index="3" -->
-  - install/update/remove pkgs <!-- .element: class="fragment" data-fragment-index="3" -->
-  - document pkg env <!-- .element: class="fragment" data-fragment-index="3" -->
-  - restore pkg env <!-- .element: class="fragment" data-fragment-index="3" -->
+### main goal
+- discuss, clarify, write down
+- common understanding
+- informs all further decisions
+- how to measure success?
 
 notes:
-conceptual part, let's look at concrete example
+we didn't do this, but should have
 
 --
 
-<img src=renv.png></img>
+#### strengthen knowledge
+- improve understanding of the model and its results
+- spark interest vs. provide in depth understanding
+- support informed decision if this is the right tool
+- basis for long-term cooperation
 
 --
 
-#### renv files & folders
-
-```sh
-renv/library/
-.Rprofile
-renv.lock
-```
-
---
-
-#### renv.lock
-
-```json
-    "magclass": {
-      "Package": "magclass",
-      "Version": "6.13.2",
-      "Source": "Repository",
-      "Repository": "https://rse.pik-potsdam.de/r/packages",
-      "RemoteUrl": "https://github.com/pik-piam/magclass",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "3c385d684d5cc3e7b90b8",
-      "Hash": "dbc9e33e04a823f7219",
-      "Requirements": [
-        "abind",
-        "data.table"
-      ]
-    },
-```
-
-notes:
-7min
+#### grow community
+- enable people to
+  - use and run model
+  - develop and contribute
 
 ---
 
-<img src=magpie.png></img>
+# key questions
+- quite general
+- informed by main goal
 
 --
 
-### MAgPIE pkg envs
-- clone MAgPIE from GitHub
-- one time only: fill empty pkg env
-- on each start: <!-- .element: class="fragment" data-fragment-index="2" -->
-  - check for updates <!-- .element: class="fragment" data-fragment-index="2" -->
-  - create new pkg env specific to that run <!-- .element: class="fragment" data-fragment-index="2" -->
+#### target audience
+- open for all
+  - unpredictable (prior knowledge, commitment)
+  - heterogeneous audience
+    - tech support required
+
+--
+
+- by invitation
+  - more predictable, more control
+  - no new people
+
+--
+
+- challenge as prerequisite
+  - more effort (design challenge, evaluate handed-in solutions)
+  - less people
+  - more homogeneous, more committed
+    - less tech support needed
 
 notes:
-open source land use optimization model in GAMS
-run prep + postprocessing in R
-...most users want all updates
-...to reproduce later
-
-9min
-x8:30min
+successfully run the model once locally
 
 --
 
-### differences to regular setup
-- daily updates vs. stable pkg env
-- for each run one stable pkg env
-- quick pkg env creation needed
-
---
-
-### technical differences
-- lockfile not commited
-- lockfile archive
-- main pkg env + one stable pkg env per run <!-- .element: class="fragment" data-fragment-index="2" -->
-- global symlink-based pkg cache <!-- .element: class="fragment" data-fragment-index="3" -->
-  - ✅ little disk space required (8.3GB for 3400 pkgs) <!-- .element: class="fragment" data-fragment-index="3" -->
-  - ✅ instant installation of cached packages <!-- .element: class="fragment" data-fragment-index="3" -->
-  - ⛔️ cache corrupt = all pkg envs break <!-- .element: class="fragment" data-fragment-index="4" -->
-  - ⛔️ dev version with same version number in cache <!-- .element: class="fragment" data-fragment-index="4" -->
-  - ⛔️ file permission issues <!-- .element: class="fragment" data-fragment-index="4" -->
-
-notes:
-a) pkg envs focus on stability; usually not wanted here (also: merge conflicts)
-which pkgs to install? not renv.lock, but DESCRIPTION + auto dep analysis
-b) per project, timestamps -> time travel alternative to git tracked lockfile
-c) sync / manage async case
-d) shared between all users -> pkg envs symlink into cache
-8.3 GB for 3400 pkg versions
-enables one pkg env per run
-single point of failure, contradicting isolation
-some user did not set umask
-clearly trade-off
-
-16min
+#### participation fee
+- less people, less accessible
+- more commited audience
+- allowed at institute? leftover money?
 
 ---
 
-### conclusion
+#### workshop format
+- online
+  - more people, accessible
+  - potentially timezone trouble
+  - less commited audience
+  - challenge: camera off audience; who is following?
 
-- ⛔️ need to learn pkg env workflows
+--
 
-- ⛔️ many different pkg envs
+- in-person
+  - less people, much less accessible
+  - location required
+  - direct access for tech help
+  - better interaction/discussion, also outside sessions
 
-1. ✅ stable pkg env 👩🏻‍🎓 <!-- .element: class="fragment" data-fragment-index="2" -->
-2. ✅ isolated testing pkg env 🧑🏼‍💻 <!-- .element: class="fragment" data-fragment-index="3" -->
-3. ✅ greatly increased reproducibility 👨🏾‍🔧 <!-- .element: class="fragment" data-fragment-index="4" -->
-  - ⚠️ e.g. system libs not covered <!-- .element: class="fragment" data-fragment-index="5" -->
+--
 
-
-notes:
-will run into problems
-debugging harder
+- hybrid
+  - more setup
+  - danger: 2-class audience
 
 ---
 
-## final slide
+#### where participants work
+- local PC
+  - heterogeneous systems (Windows, Mac, Linux)
+  - no admin permission
+  - super slow/outdated system
+  - danger: pre-workshop setup ignored
+    - lots of tech support needed
+
+--
+
+- provided system (virtual environment (ssh), hardware PC)
+  - suitable system required
+  - foreign system for participants
+
+--
+
+- virtual machine on PC (e.g. dockerfile)
+  - less setup required
+  - foreign system for participants
+
+notes:
+best or worst of both worlds?
+
+---
+
+#### resources
+- people
+  - who organizes workshop
+  - presenters
+    - one session per person
+      - less work for each presenter
+      - more coordination overhead
+      - danger: sessions are not seamless (redundant or missing parts)
+    - few presenters
+      - more work for each presenter
+  - tech support
+
+--
+
+- location
+  - workshop room
+  - breakout rooms
+  - accomodation
+
+- money
+  - software licenses
+  - catering, drinks
+
+---
+
+### what worked well
+- expectation management (communicate goal)
+- website (tutorials, slides, links)
+- timetable
+
+---
+
+### summary
+- clarify main goal
+- consider ressources, key questions upfront
+- prepare for complications
+  - tricky setup problems
+  - participants not committed, drop out
+  - more time is needed
+
+---
+
+### final slide
 [pascal.sauer@pik-potsdam.de](mailto:pascal.sauer@pik-potsdam.de)
 
 [github.com/pascal-sauer](https://github.com/pascal-sauer)
 
-[slides on GitHub](https://github.com/pascal-sauer/deRSE24-reproducible-pkg-envs)
-
-[renv homepage](https://rstudio.github.io/renv/)
+[slides on GitHub](https://github.com/pascal-sauer/open-source-community-workshops)
 
 [slides made with reveal.js](https://revealjs.com/)
-
-notes:
-19min
 					</textarea>
 				</section>
 			</div>
